@@ -1,0 +1,89 @@
+{
+  "enable_control_tools": {
+    "description": "总开关：是否把本地电脑控制工具注册为 LLM Tool",
+    "type": "bool",
+    "default": true,
+    "hint": "关闭后所有 pc_* 工具都不会注册，等于停用插件功能（但仍可热加载）。"
+  },
+  "require_admin": {
+    "description": "控制类工具是否要求管理员（鼠标/键盘/剪贴板写入/启动或结束程序）",
+    "type": "bool",
+    "default": true,
+    "hint": "强烈建议保持开启。非管理员调用会被拒绝并提示如何加白名单。"
+  },
+  "require_admin_for_screenshot": {
+    "description": "截屏/窗口列举/剪贴板读取是否也要求管理员",
+    "type": "bool",
+    "default": false,
+    "hint": "默认关闭（截图不改变系统状态）。如果屏幕上有敏感信息，建议打开。"
+  },
+  "extra_admin_ids": {
+    "description": "额外允许的调用者 ID（逗号分隔，配合 require_admin 使用）",
+    "type": "text",
+    "default": "",
+    "hint": "例如：123456789,webchat_user。仅当事件里的 role 不是 admin 时才需要填。"
+  },
+  "failsafe": {
+    "description": "pyautogui.FAILSAFE 救命开关",
+    "type": "bool",
+    "default": true,
+    "hint": "开启后，鼠标被拖到屏幕左上角会立刻抛异常中断所有自动化操作，务必保持开启。"
+  },
+  "mouse_pause": {
+    "description": "pyautogui 每次动作后的停顿（秒）",
+    "type": "float",
+    "default": 0.05,
+    "hint": "调大可降低误操作速度，给用户按 FAILSAFE 的时间。"
+  },
+  "screenshot_dir": {
+    "description": "截图保存目录（留空则用系统临时目录下的 astrbot_pc_control_shots）",
+    "type": "string",
+    "default": ""
+  },
+  "max_keep_screenshots": {
+    "description": "截屏目录最多保留的图片数量",
+    "type": "int",
+    "default": 30,
+    "hint": "超过的旧截图会在下次截屏时自动清理。"
+  },
+  "screenshot_retention_days": {
+    "description": "截屏目录保留天数（0=只看张数，按天数清理默认关闭）",
+    "type": "int",
+    "default": 0,
+    "hint": "设为 1~7 可让 %TEMP% 下的截图目录按时间自动过期淘汰；0 表示不按时间删。原图与对应缩略图会成对清理。"
+  },
+  "max_image_side": {
+    "description": "进入模型上下文的图片最长边（像素，0=不缩放）",
+    "type": "int",
+    "default": 1280,
+    "hint": "只影响喂给模型的那份：抓屏时会顺带产出该尺寸的 JPEG 缩略图。发给用户的仍是原图。1920x1080 PNG 压到 1280px 后 base64 体积约降到 1/20。"
+  },
+  "image_jpeg_quality": {
+    "description": "喂给模型的压缩图 JPEG 质量（1-95）",
+    "type": "int",
+    "default": 75,
+    "hint": "低于 60 画面细节明显丢失，高于 85 体积回升较快；默认 75 在可读性与体积间平衡。"
+  },
+  "keep_recent_images": {
+    "description": "上下文里最多保留的图片数量（更早的图片会被替换成占位文本）",
+    "type": "int",
+    "default": 2,
+    "hint": "每次请求前由 on_llm_request 钩子执行：只保留最近 N 张图片，更早的只留一句“此处曾有图片、已清理”的提示，避免历史截图 base64 撑爆请求体（413）。0=清空所有历史图片。"
+  },
+  "send_screenshot_to_user": {
+    "description": "截屏后是否自动把图片发到当前会话",
+    "type": "bool",
+    "default": true
+  },
+  "type_text_by_clipboard": {
+    "description": "含中文等非 ASCII 文本时用剪贴板 + Ctrl+V 输入",
+    "type": "bool",
+    "default": true,
+    "hint": "关闭后 pc_type_text 无法输入中文（pyautogui 打不出中文）。"
+  },
+  "restore_clipboard_after_type": {
+    "description": "剪贴板输入文本后恢复原剪贴板内容",
+    "type": "bool",
+    "default": true
+  }
+}

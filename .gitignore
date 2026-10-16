@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.bak
+*.bak_*
+*_bak_*
+*.log
+.DS_Store
+data/
+.venv/

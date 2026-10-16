@@ -1,0 +1,32 @@
+name: astrbot_plugin_pc_control
+display_name: PC Control (本地电脑控制)
+short_desc: 让 LLM 截屏查看屏幕，并操作本机鼠标、键盘、剪贴板、窗口与程序
+desc: |
+  把本机（Windows）的截屏、鼠标、键盘、剪贴板、窗口管理、程序启动/结束能力
+  注册为 LLM 函数工具，模型可直接调用。
+
+  包含工具：
+    pc_screenshot / pc_screen_size / pc_mouse_position
+    pc_mouse_move / pc_mouse_click / pc_mouse_drag / pc_mouse_scroll
+    pc_key_press / pc_key_hotkey / pc_type_text
+    pc_clipboard_read / pc_clipboard_write
+    pc_list_windows / pc_activate_window / pc_active_window
+    pc_launch_program / pc_kill_process
+
+  安全：控制类工具默认需要管理员；pyautogui FAILSAFE 默认开启；
+  结束进程需 confirm="KILL" 二次确认。
+  注意：模型误操作会真的操作你的鼠标键盘，请谨慎开启。
+
+  图片体积治理（v1.0.1）：进模型上下文的一律是压缩版（默认最长边 1280px、
+  JPEG q75），发给用户的仍然是原图；并带上下文瘦身钩子，只保留最近 N 张图，
+  避免历史里的截图 base64 撑爆请求体（网关 413）。
+author: JH114514
+version: 1.0.1
+repo: https://github.com/jh520114514/astrbot-plugins
+support_platforms:
+  - webchat
+  - aiocqhttp
+  - telegram
+  - discord
+  - qq_official
+  - wecom

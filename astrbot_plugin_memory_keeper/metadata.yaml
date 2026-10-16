@@ -1,0 +1,7 @@
+name: astrbot_plugin_memory_keeper
+display_name: 记忆管家（长任务续接）
+desc: 只追加不覆盖的安全记忆注入 + 任务看板续接。解决"长任务忘掉前文"和"记忆插件注入打断任务"两个问题：绝不清空 contexts、绝不覆盖 system_prompt、工具调用链中不注入，并提供 memory_save/memory_search/task_update/task_read 四个模型工具。
+version: v1.1.0
+author: JH114514
+repo: https://github.com/jh520114514/astrbot-plugins
+homepage: https://github.com/jh520114514/astrbot-plugins

@@ -1,0 +1,117 @@
+{
+  "enable": {
+    "description": "总开关：关闭后完全不注入（记忆仍会保留）",
+    "type": "bool",
+    "default": true
+  },
+  "inject_budget": {
+    "description": "单次注入的字符上限（超出按重要度裁剪）",
+    "type": "int",
+    "default": 1500
+  },
+  "memory_top_k": {
+    "description": "每次注入最多带几条记忆（事实+闲聊）",
+    "type": "int",
+    "default": 5
+  },
+  "min_interval_sec": {
+    "description": "同一会话两次注入的最小间隔（秒），防刷屏",
+    "type": "float",
+    "default": 20
+  },
+  "with_tool_hint": {
+    "description": "是否在注入块里带上「请用 task_update/memory_save 记录」的协作约定",
+    "type": "bool",
+    "default": true
+  },
+  "inject_task_board": {
+    "description": "是否注入当前会话的任务看板（长任务续接的关键）",
+    "type": "bool",
+    "default": true
+  },
+  "auto_goal_capture": {
+    "description": "自动把像任务的消息记成看板目标（保守：不覆盖 24 小时内的已有目标）",
+    "type": "bool",
+    "default": true
+  },
+  "auto_save_user": {
+    "description": "额外把用户消息存进记忆（默认关，避免噪音）",
+    "type": "bool",
+    "default": false
+  },
+  "save_importance": {
+    "description": "auto_save_user 的默认重要度 1-5",
+    "type": "int",
+    "default": 2
+  },
+  "inject_directives": {
+    "description": "注入「长期指令/约定」槽位（你说过'以后…'记住…'这类内容）",
+    "type": "bool",
+    "default": true
+  },
+  "directive_budget": {
+    "description": "指令槽位字符上限",
+    "type": "int",
+    "default": 400
+  },
+  "directive_max": {
+    "description": "最多注入几条指令",
+    "type": "int",
+    "default": 6
+  },
+  "project_recall": {
+    "description": "你提起某个已归档项目时，召回它的摘要（平时不注入，不抢当前任务）",
+    "type": "bool",
+    "default": true
+  },
+  "project_recall_k": {
+    "description": "最多召回几个归档项目",
+    "type": "int",
+    "default": 2
+  },
+  "project_budget": {
+    "description": "每个归档项目摘要的字符上限",
+    "type": "int",
+    "default": 300
+  },
+  "chat_memory": {
+    "description": "记录日常对话记忆（低重要度，只在相关时被想起）",
+    "type": "bool",
+    "default": true
+  },
+  "chat_min_len": {
+    "description": "多短的消息不记（字符数下限）",
+    "type": "int",
+    "default": 8
+  },
+  "chat_max_len": {
+    "description": "多长的消息不记（字符数上限）",
+    "type": "int",
+    "default": 300
+  },
+  "chat_importance": {
+    "description": "闲聊记忆的重要度 1-5",
+    "type": "int",
+    "default": 2
+  },
+  "chat_fallback": {
+    "description": "没有相关记忆时，是否附带 1 条最近的闲聊（让偶尔的对话也能被想起）",
+    "type": "bool",
+    "default": true
+  },
+  "auto_archive_days": {
+    "description": "任务看板超过 N 天没更新 → 自动归档成项目摘要",
+    "type": "float",
+    "default": 3
+  },
+  "auto_archive_sweep_hours": {
+    "description": "自动归档扫描间隔（小时）",
+    "type": "float",
+    "default": 6
+  },
+  "summary_llm": {
+    "description": "用当前模型润色项目摘要（失败会自动退回看板模板摘要）",
+    "type": "bool",
+    "default": true
+  }
+}

@@ -1,0 +1,23 @@
+# astrbot_plugin_pc_control 运行期依赖
+#
+# 安装到【该 AstrBot 实例自己的 venv】，不要用系统 python：
+#   & "<实例目录>\venv\Scripts\python.exe" -m pip install -r requirements.txt
+# 换国内源（可选）：
+#   & "<实例目录>\venv\Scripts\python.exe" -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+#
+# 说明：本插件所有第三方依赖都是"懒加载 + 可读降级"，
+# 缺某个包不会让插件崩溃，只会让对应功能不可用，并通过 /pcstatus 报出来。
+# 下面的分组标明"必需 / 强烈建议 / 可选"。
+
+# —— 必需（缺了对应核心能力直接不可用）——
+Pillow>=9.0            # PNG 编码、窗口截屏(PrintWindow)与纯色检测；缺了：整屏截屏/窗口截屏不可用
+pyautogui>=0.9.53      # 鼠标/键盘控制；缺了：所有控制类工具(pc_mouse_*/pc_key_*/pc_type_text)不可用
+
+# —— 强烈建议（缺了会明显退化，但插件仍能加载）——
+mss>=6.1               # 高速整屏抓取；缺了：整屏截屏降级为 pyautogui.screenshot，再失败降级为 PrintWindow 抓前台窗口
+pyperclip>=1.8         # 剪贴板读写 + 中文输入(Ctrl+V)；缺了：剪贴板工具不可用，pc_type_text 只能打 ASCII
+psutil>=5.9            # 进程枚举/结束；缺了：pc_kill_process 与进程名解析不可用（会提示缺依赖）
+
+# —— 可选（缺了只损失增强能力）——
+pygetwindow>=0.0.9     # 窗口枚举/激活的兜底；缺了：自动改用内置 ctypes Win32 枚举，功能基本不受影响
+uiautomation>=2.0      # 读浏览器地址栏 URL；缺了：pc_active_window 只返回窗口标题，不硬凑 URL
